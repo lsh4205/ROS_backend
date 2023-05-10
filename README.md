@@ -11,12 +11,14 @@
 
     `$ docker build -t ros-anomaly-detector .`
   
-4. Run Docker and test with `rosbag info data.bag`.S ite environment can be simulated by playing given rosbag file.
+4. Run Docker and test with `rosbag info data.bag`.Site environment can be simulated by playing given rosbag file.
   
     `$ docker run --rm ros-anomaly-detector rosbag info data.bag`
   
 5. Run **ros-anomaly-detector** image.
+
   `$ docker run --rm -v $(pwd):/workspace ros-anomaly-detector python3 /workspace/anomaly-detector.py`
+  
 ## Reference
 - [ROS - *Publisher* and *Subscriber*](https://medium.com/swlh/part-3-create-your-first-ros-publisher-and-subscriber-nodes-2e833dea7598#:~:text=A%20ROS%20Node%20can%20be,is%20published%20to%20the%20Topic)
 - [ROS Docker Tutorial](http://wiki.ros.org/docker/Tutorials/Docker)
