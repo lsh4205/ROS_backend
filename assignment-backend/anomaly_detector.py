@@ -26,3 +26,10 @@ class AnomalyDetector:
         if msg.linear.z > ANOMALY_VELOCITY_THRESHOLD:
             incident_time = t
             self.anomalies.append(incident_time) 
+            self.points_clouds_collect(incident_time)
+
+    def points_clouds_collect(self, incident_time):
+        start_time = incident_time - DELTA_T
+        end_time = incident_time + DELTA_T
+
+        point_clouds_in_DELTA_T = [pc for pc in self.point_clouds if start_time <= pc[0] <= end_time]
