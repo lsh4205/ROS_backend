@@ -15,7 +15,6 @@ class AnomalyDetector:
 
     def process_rosbag_file(self):
         bag = rosbag.Bag(BAG_FILE, "r")
-        te = True
         for topic, msg, t in bag.read_messages():
             if topic == "/velocity":
                 self.velocity_callback(msg, t.to_sec())
@@ -33,3 +32,9 @@ class AnomalyDetector:
         end_time = incident_time + DELTA_T
 
         point_clouds_in_DELTA_T = [pc for pc in self.point_clouds if start_time <= pc[0] <= end_time]
+        incident_dir = os.path.join(SITE_NAME, str(incident_time))
+        os.makedirs(incident_dir, exist_ok=True)
+
+        for t, pc in point_clouds:
+            pcd_name = t + '.pcd'
+            file_path = os.path.join(incident_dir, pcd_name)
