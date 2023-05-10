@@ -21,3 +21,8 @@ class AnomalyDetector:
                 self.velocity_callback(msg, t.to_sec())
             elif topic == "/lidar_0000/os_cloud_node/points":
                 self.point_clouds.append((t.to_sec(), msg))
+
+    def velocity_callback(self, msg, t):
+        if msg.linear.z > ANOMALY_VELOCITY_THRESHOLD:
+            incident_time = t
+            self.anomalies.append(incident_time) 
