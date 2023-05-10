@@ -12,5 +12,5 @@ RUN python3 -m pip install --upgrade pip && \
 RUN mkdir /workspace
 WORKDIR /workspace
 
-COPY test.py /workspace/test.py
+COPY anomaly_detector.py /workspace/anomaly_detector.py
 COPY data.bag /workspace/data.bag
