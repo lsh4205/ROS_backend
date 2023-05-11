@@ -1,25 +1,31 @@
 # ROS_backend
-## Docker Setting
-1. Update `apt-get` with `apt-get update`.
-2. Install all necessary modules with `apt-get install -y`
+This document provides the necessary steps for setting up the `ros-anomaly-detector` Docker image and details regarding the Python script responsible for detecting and collecting abnormal data, which is designed for the Robot Operating System(ROS).
+
+## Prerequisites
+1. Create a Dockerfile
+ - The Dockerfile contains all the commandlines to assemble an image to ensure all the dependencies, libraries, and tools needed for the application to run.
+2. Update `apt-get` with `apt-get update`.
+ - Update Advanced Packaging Tool(APT) to ensure the latest versions are installed.
+3. Install all necessary modules with `apt-get install -y`
   - `ros-noetic-ros-numpy`
-    - Install `ros_numpy` to convert PointCloud2 message to array format that has $x$, $y$, and $z$. [Reference](https://answers.ros.org/question/270439/ros_numpy-package/)
+    - Install `ros_numpy` to convert PointCloud2 message to array format.
   - `python3-pcl`
     - Create a PCL point cloud and populates it with the data from the numpy array.
   - `python3-pip`
-    - `rosbag` Python package uses `Cryptodomex` and `gnupg` pagckages based on [rosbag/Cookbook](http://wiki.ros.org/rosbag/Cookbook). They can be installed using pip. 
+    - `rosbag` Python package uses `Cryptodomex` and `gnupg` pagckages based on [rosbag/Cookbook](http://wiki.ros.org/rosbag/Cookbook).
     
       `$ pip3 install pycryptodomex python-gnupg`
     
-3. Build Docker image called **ros-anomaly-detector** with following commandline.
+4. Build Docker image called **ros-anomaly-detector** using the following command:
 
     `$ docker build -t ros-anomaly-detector .`
   
-4. Run Docker and test with `rosbag info data.bag`.Site environment can be simulated by playing given rosbag file.
+5. Run Docker and test with Rosbag
+ - Upon completing the setup procedures, `rosbag info data.bag` command will provide a summary of the contents stored in the bag file.
   
     `$ docker run --rm ros-anomaly-detector rosbag info data.bag`
   
-5. Run **ros-anomaly-detector** image.
+6. Run **ros-anomaly-detector** image.
 
     `$ docker run --rm -v $(pwd):/workspace ros-anomaly-detector python3 /workspace/anomaly-detector.py`
 
