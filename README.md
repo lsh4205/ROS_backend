@@ -2,16 +2,15 @@
 ## Docker Setting
 1. Update `apt-get` with `apt-get update`.
 2. Install all necessary modules with `apt-get install -y`
-  a. `ros-noetic-ros-numpy`
+  - `ros-noetic-ros-numpy`
     - Install `ros_numpy` to convert PointCloud2 message to array format that has $x$, $y$, and $z$. [Reference](https://answers.ros.org/question/270439/ros_numpy-package/)
-    
-  b. `python3-pcl`
+  - `python3-pcl`
     - Create a PCL point cloud and populates it with the data from the numpy array.
-    
-  c. `python3-pip`
-    - rosbag Python package uses `Cryptodomex` and `gnupg` pagckages based on [rosbag/Cookbook](http://wiki.ros.org/rosbag/Cookbook). They can be installed via `pip` using: 
+  - `python3-pip`
+    - `rosbag` Python package uses `Cryptodomex` and `gnupg` pagckages based on [rosbag/Cookbook](http://wiki.ros.org/rosbag/Cookbook). They can be installed using pip. 
     
       `$ pip3 install pycryptodomex python-gnupg`
+    
 3. Build Docker image called **ros-anomaly-detector** with following commandline.
 
     `$ docker build -t ros-anomaly-detector .`
