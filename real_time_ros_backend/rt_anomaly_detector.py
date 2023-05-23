@@ -20,17 +20,24 @@ BUFFER_SIZE = 200
 class AnomalyDetector:
     def __init__(self):
         self.anomalies =[]
+        # Save PointCloud2 in a limited size to save memory and improve efficiency.
         self.point_clouds = deque(maxlen=BUFFER_SIZE)
+        
         rospy.init_node("velocity_anomaly_detector")
-
-        self.velocity_sub = rospy.Subscriber("/velocity", Twist, self.velocity_callback)
-
+        rospy.Subscriber("/velocity", Twist, self.velocity_callback)
+        rospy.Subscriber("//lidar_0000/os_cloud_node/points", PointCloud2, self.pc2_callback)
 
     def velocity_callback(self, msg):
+        incident_time = rospy.Time.now().to_sec()
         if msg.linear.z > ANOMALY_VELOCITY_THRESHOLD:
-            pass
+            self.anomalies.append(incident_time)
+            self.collect_anomalies_pc2(incident_time)
 
-    def points_clouds_collect(self, incident_time):
+    def pc2_callback(self, msg):
+        t = rospy.Time.now().to_sec()
+        self.point_clouds.append((t, msg))
+
+    def collect_anomalies_pc2(self, incident_time):
         # Collect pointclouds between 2 seconds before anomaly 
         # and 2 seconds after the anomaly in `.pcd`.
         start_time = incident_time - DELTA_T
@@ -60,6 +67,7 @@ class AnomalyDetector:
 def main():
 
     anomaly_detector = AnomalyDetector()
+    rospy.spin()
     print(anomaly_detector.anomalies)
 
 main()
