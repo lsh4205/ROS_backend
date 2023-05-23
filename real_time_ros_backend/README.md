@@ -8,6 +8,6 @@
 
     `docker run --net=host -it rt-anomaly-detector rosbag play data.bag`
 
-3. Record the selective real-time topic from robot into `.bag` file. (Ref)[https://www.youtube.com/watch?v=Vlp0e89TXpI]
+3. Record the selective real-time topic from robot into `.bag` file. [Reference](https://www.youtube.com/watch?v=Vlp0e89TXpI)
 
     `rosbag record /velocity /lidar_0000/os_cloud_node/points {/and_so_on}`
