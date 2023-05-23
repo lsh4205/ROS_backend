@@ -12,8 +12,6 @@ RUN apt-get update && \
 RUN python3 -m pip install --upgrade pip && \
     pip3 install pycryptodomex python-gnupg numpy
 
-RUN mkdir /workspace
-WORKDIR /workspace
 
-COPY rt_anomaly_detector.py /workspace/rt_anomaly_detector.py
-COPY data.bag /workspace/data.bag
+COPY rt_anomaly_detector.py rt_anomaly_detector.py
+COPY data.bag data.bag
